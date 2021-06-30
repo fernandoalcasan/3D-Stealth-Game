@@ -58,3 +58,8 @@ sysinfo.txt
 # Crashlytics generated file
 crashlytics-build.properties
 
+# Directories
+**/Assets/GameDevHQ
+
+#Files
+Assets/The*Great*Fleece/Game/_Scenes/Learning/Environment_Finished/LightingData.asset
