@@ -12,6 +12,9 @@ public class AIGuard : MonoBehaviour
     private List<Transform> _waypoints;
     private int _target;
 
+    [SerializeField]
+    private GameObject _gameOverCutscene;
+
     void Start()
     {
         _navAgent = GetComponent<NavMeshAgent>();
@@ -42,6 +45,10 @@ public class AIGuard : MonoBehaviour
             }
             else
                 SetNextTarget();
+        }
+        else if(other.CompareTag("Player"))
+        {
+            _gameOverCutscene.SetActive(true);
         }
     }
 
