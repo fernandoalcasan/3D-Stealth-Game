@@ -15,6 +15,8 @@ public class AIGuard : MonoBehaviour
     [SerializeField]
     private GameObject _gameOverCutscene;
 
+    private bool _distracted;
+
     void Start()
     {
         _navAgent = GetComponent<NavMeshAgent>();
@@ -29,10 +31,15 @@ public class AIGuard : MonoBehaviour
             StartCoroutine(WaitToPatrol());
         else
             Debug.LogError("Please select 2 waypoints at least");
+
+        Player.OnCoinDistraction += GetDistracted;
     }
 
     private void OnTriggerEnter(Collider other)
     {
+        if (_distracted)
+            return;
+
         if(other.CompareTag("Waypoint"))
         {
             _target++;
@@ -66,5 +73,31 @@ public class AIGuard : MonoBehaviour
         yield return new WaitForSeconds(Random.Range(2f, 5f));
         _anim.SetBool("Walk", true);
         SetNextTarget();
+    }
+
+    private void GetDistracted(Vector3 pos)
+    {
+        if(Vector3.Distance(transform.position, pos) <= 15f)
+        {
+            StopAllCoroutines();
+            _distracted = true;
+            _navAgent.SetDestination(pos);
+            _anim.SetBool("Walk", true);
+            StartCoroutine(FollowDistraction(pos));
+        }
+    }
+
+    private IEnumerator FollowDistraction(Vector3 pos)
+    {
+        while(Vector3.Distance(transform.position, pos) > 2.5f)
+            yield return null;
+
+        _anim.SetBool("Walk", false);
+        _navAgent.SetDestination(transform.position);
+    }
+
+    private void OnDestroy()
+    {
+        Player.OnCoinDistraction -= GetDistracted;
     }
 }
