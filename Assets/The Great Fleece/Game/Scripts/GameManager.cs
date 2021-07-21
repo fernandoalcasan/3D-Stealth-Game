@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Playables;
 
 public class GameManager : MonoBehaviour
 {
@@ -16,8 +17,21 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    [SerializeField]
+    private PlayableDirector _introScene;
+    private bool _introFinished;
+
     private void Awake()
     {
         _instance = this;
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.S) && !_introFinished)
+        {
+            _introScene.time = 56f;
+            _introFinished = true;
+        }
     }
 }
