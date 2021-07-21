@@ -30,7 +30,8 @@ public class GameManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.S) && !_introFinished)
         {
-            _introScene.time = 56f;
+            if(_introScene.time < 56f)
+                _introScene.time = 56f;
             _introFinished = true;
         }
     }
