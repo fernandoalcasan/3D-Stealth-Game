@@ -9,6 +9,9 @@ public class VoiceOverTrigger : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
+        {
             AudioManager.Instance.PlayVoiceOverAudio(_voiceOverAudio);
+            Destroy(gameObject);
+        }
     }
 }

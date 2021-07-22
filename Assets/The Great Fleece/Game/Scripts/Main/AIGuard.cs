@@ -69,6 +69,7 @@ public class AIGuard : MonoBehaviour
 
     private IEnumerator WaitToPatrol()
     {
+        yield return new WaitForSeconds(1f);
         _anim.SetBool("Walk", false);
         yield return new WaitForSeconds(Random.Range(2f, 5f));
         _anim.SetBool("Walk", true);
