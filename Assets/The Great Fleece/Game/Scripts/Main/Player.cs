@@ -44,7 +44,7 @@ public class Player : MonoBehaviour
 
         _floorType = FloorType.Soft;
 
-        if(_audios.Length < 3)
+        if(_audios.Length < 4)
         {
             Debug.LogError("Please set the respective SFX audios");
         }
@@ -57,6 +57,7 @@ public class Player : MonoBehaviour
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             if (Physics.Raycast(ray, out RaycastHit hitInfo, float.PositiveInfinity, _floorMask))
             {
+                AudioManager.Instance.PlaySFX(_audios[3], 0.4f);
                 _navAgent.SetDestination(hitInfo.point);
                 Instantiate(_navRipplePrefab, hitInfo.point, _navRipplePrefab.transform.rotation);
             }
