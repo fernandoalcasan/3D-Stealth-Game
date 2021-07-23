@@ -15,7 +15,7 @@ public class Player : MonoBehaviour
     [SerializeField]
     private GameObject _coinRipplePrefab;
     [SerializeField]
-    private AudioClip _coinAudio;
+    private AudioClip[] _audios;
 
     private NavMeshAgent _navAgent;
     private Animator _anim;
@@ -23,6 +23,13 @@ public class Player : MonoBehaviour
     [SerializeField]
     private int _coins;
     private int _floorLayer;
+
+    public enum FloorType
+    {
+        Marble,
+        Soft
+    }
+    private FloorType _floorType;
 
     private void Awake()
     {
@@ -35,6 +42,12 @@ public class Player : MonoBehaviour
             Debug.LogError("Animator in children is NULL");
 
         _floorLayer = 1 << 7;
+        _floorType = FloorType.Soft;
+
+        if(_audios.Length < 3)
+        {
+            Debug.LogError("Please set the respective SFX audios");
+        }
     }
 
     private void Update()
@@ -80,7 +93,28 @@ public class Player : MonoBehaviour
         if (!(OnCoinDistraction is null))
             OnCoinDistraction(pos);
         Instantiate(_coinPrefab, pos, Quaternion.identity);
-        AudioSource.PlayClipAtPoint(_coinAudio, pos);
+        AudioManager.Instance.PlaySFX(_audios[0], 0.4f);
+    }
+
+    private void PlayFootstep()
+    {
+        switch (_floorType)
+        {
+            case FloorType.Marble:
+                AudioManager.Instance.PlaySFX(_audios[2], 0.4f);
+                break;
+            case FloorType.Soft:
+                AudioManager.Instance.PlaySFX(_audios[1], 0.4f);
+                break;
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.CompareTag("Marble"))
+            _floorType = FloorType.Marble;
+        else if (other.CompareTag("Soft"))
+            _floorType = FloorType.Soft;
     }
 
     private void OnDestroy()

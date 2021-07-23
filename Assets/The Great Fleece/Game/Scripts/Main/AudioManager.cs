@@ -18,6 +18,8 @@ public class AudioManager : MonoBehaviour
 
     [SerializeField]
     private AudioSource _voiceOverAS;
+    [SerializeField]
+    private AudioSource _sfxAS;
 
     private void Awake()
     {
@@ -28,5 +30,10 @@ public class AudioManager : MonoBehaviour
     {
         _voiceOverAS.clip = clip;
         _voiceOverAS.Play();
+    }
+
+    public void PlaySFX(AudioClip clip, float volume)
+    {
+        _sfxAS.PlayOneShot(clip, volume);
     }
 }
