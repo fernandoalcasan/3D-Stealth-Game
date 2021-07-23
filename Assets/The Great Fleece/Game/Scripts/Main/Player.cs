@@ -22,7 +22,8 @@ public class Player : MonoBehaviour
 
     [SerializeField]
     private int _coins;
-    private int _floorLayer;
+    [SerializeField]
+    private LayerMask _floorMask;
 
     public enum FloorType
     {
@@ -41,7 +42,6 @@ public class Player : MonoBehaviour
         if (_anim is null)
             Debug.LogError("Animator in children is NULL");
 
-        _floorLayer = 1 << 7;
         _floorType = FloorType.Soft;
 
         if(_audios.Length < 3)
@@ -55,7 +55,7 @@ public class Player : MonoBehaviour
         if(Input.GetMouseButtonDown(0))
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            if (Physics.Raycast(ray, out RaycastHit hitInfo, _floorLayer))
+            if (Physics.Raycast(ray, out RaycastHit hitInfo, float.PositiveInfinity, _floorMask))
             {
                 _navAgent.SetDestination(hitInfo.point);
                 Instantiate(_navRipplePrefab, hitInfo.point, _navRipplePrefab.transform.rotation);
@@ -65,11 +65,9 @@ public class Player : MonoBehaviour
         if (_coins > 0 && Input.GetMouseButtonDown(1))
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            if (Physics.Raycast(ray, out RaycastHit hitInfo, _floorLayer))
+            if (Physics.Raycast(ray, out RaycastHit hitInfo, float.PositiveInfinity, _floorMask))
             {
                 Instantiate(_coinRipplePrefab, hitInfo.point, _coinRipplePrefab.transform.rotation);
-                //To avoid collider issues
-                hitInfo.point = new Vector3(hitInfo.point.x, -2f, hitInfo.point.z);
                 ThrowCoin(hitInfo.point);
                 _coins--;
             }
