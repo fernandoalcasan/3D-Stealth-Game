@@ -11,6 +11,10 @@ public class Player : MonoBehaviour
     [SerializeField]
     private GameObject _coinPrefab;
     [SerializeField]
+    private GameObject _navRipplePrefab;
+    [SerializeField]
+    private GameObject _coinRipplePrefab;
+    [SerializeField]
     private AudioClip _coinAudio;
 
     private NavMeshAgent _navAgent;
@@ -41,6 +45,7 @@ public class Player : MonoBehaviour
             if (Physics.Raycast(ray, out RaycastHit hitInfo, _floorLayer))
             {
                 _navAgent.SetDestination(hitInfo.point);
+                Instantiate(_navRipplePrefab, hitInfo.point, _navRipplePrefab.transform.rotation);
             }
         }
 
@@ -49,6 +54,7 @@ public class Player : MonoBehaviour
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             if (Physics.Raycast(ray, out RaycastHit hitInfo, _floorLayer))
             {
+                Instantiate(_coinRipplePrefab, hitInfo.point, _coinRipplePrefab.transform.rotation);
                 //To avoid collider issues
                 hitInfo.point = new Vector3(hitInfo.point.x, -2f, hitInfo.point.z);
                 ThrowCoin(hitInfo.point);

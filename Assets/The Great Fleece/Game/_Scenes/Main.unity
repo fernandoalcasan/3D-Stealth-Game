@@ -32075,6 +32075,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _coinPrefab: {fileID: 1667124884920464, guid: 4aee20544b12e47219af132208bc5ccb,
     type: 3}
+  _navRipplePrefab: {fileID: 7106461079372310119, guid: 153ea6559d73edc47aa0937b6dc04ddf,
+    type: 3}
+  _coinRipplePrefab: {fileID: 7106461079372310119, guid: 4c858856903843f4db2f820b2d6e62f8,
+    type: 3}
   _coinAudio: {fileID: 8300000, guid: 7a03079805ab64c8ea844d80fdc43366, type: 3}
   _coins: 3
 --- !u!1 &1257914124
@@ -36294,7 +36298,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1488772775}
-  m_LocalRotation: {x: -0.34491882, y: -0.50383, z: -0.22924836, w: 0.75804454}
+  m_LocalRotation: {x: -0.34491882, y: -0.50382996, z: -0.22924836, w: 0.7580446}
   m_LocalPosition: {x: 4.668701, y: 2.0403967, z: 26.199366}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -52161,8 +52165,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2043896029}
-  m_LocalRotation: {x: -0.33065727, y: 0.0012329342, z: -0.00043193717, w: -0.9437501}
-  m_LocalPosition: {x: -0.92263013, y: -0.255023, z: -56.808887}
+  m_LocalRotation: {x: -0.060179584, y: 0.90181947, z: 0.13353725, w: 0.40653157}
+  m_LocalPosition: {x: 1.7025471, y: 4.3810816, z: -58.089256}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
